@@ -11,10 +11,17 @@ public class Main {
 		window.setResizable(false);
 		window.setTitle("Guarda quanto son bellino");
 		
+		GamePanel gamePanel = new GamePanel();
+		window.add(gamePanel);
+		
+		window.pack();
+		
+		
+		
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 		
-
+		gamePanel.startGameThread();
 	}
 
 }
