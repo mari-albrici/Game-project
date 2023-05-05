@@ -2,6 +2,9 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
@@ -24,6 +27,17 @@ public class Player extends Entity{
 		x = 100;
 		y = 100;
 		speed = 4;
+	}
+	
+	public void getPlayerImage() {
+		
+		try {
+			
+			up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_up1.png"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void update() {
