@@ -13,10 +13,10 @@ public class GamePanel extends JPanel implements Runnable{
 	final int scale = 3;
 	
 	public final int tileSize = originalTileSize * scale; // le tile diventano 48x48
-	final int maxScreenCol = 16;
-	final int maxScreenRow = 12;
-	final int screenWidth = tileSize * maxScreenCol; // 768 px
-	final int screenHeight = tileSize * maxScreenRow; // 576 px
+	public final int maxScreenCol = 16;
+	public final int maxScreenRow = 12;
+	public final int screenWidth = tileSize * maxScreenCol; // 768 px
+	public final int screenHeight = tileSize * maxScreenRow; // 576 px
 	//otteniamo così un ratio 4:3
 	
 	//FPS
@@ -29,10 +29,6 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	Player player = new Player(this, keyH);
 	
-	//player default position
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 4;
 	
 	
 	public GamePanel() {
@@ -75,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
 				delta--;
 				drawCount++;
 			}
-			if(timer >= 10000000) {
+			if(timer >= 1000000000) {
 				System.out.println("FPS: " + drawCount);
 				drawCount = 0;
 				timer = 0;
