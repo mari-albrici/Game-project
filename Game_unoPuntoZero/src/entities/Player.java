@@ -1,6 +1,6 @@
 package entities;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -69,7 +69,7 @@ public class Player extends Entity{
 		}
 		
 		spriteCounter++;
-		if(spriteCounter > 10) {
+		if(spriteCounter > 15) {
 			if(spriteNum == 1) {
 				spriteNum = 2;
 			}
