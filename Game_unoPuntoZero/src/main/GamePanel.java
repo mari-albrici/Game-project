@@ -1,15 +1,19 @@
 package main;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.FileNotFoundException;
+
 import javax.swing.JPanel;
 import entities.Player;
+import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
 	//SCREEN SETTINGS
-	final int originalTileSize = 16; // 16x16 tile, dimensione base dei pg e delle tessere della mappa
+	public final int originalTileSize = 16; // 16x16 tile, dimensione base dei pg e delle tessere della mappa
 	final int scale = 3;
 	
 	public final int tileSize = originalTileSize * scale; // le tile diventano 48x48
@@ -21,6 +25,9 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//FPS
 	int FPS = 60;
+	
+
+	TileManager tileM = new TileManager(this);
 	
 	
 	KeyHandler keyH = new KeyHandler();
@@ -91,6 +98,8 @@ public class GamePanel extends JPanel implements Runnable{
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D)g;
+		
+		tileM.draw(g2);
 		
 		player.draw(g2);
 		
