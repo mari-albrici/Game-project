@@ -14,7 +14,7 @@ public class TileManager {
 	
 	GamePanel gp;
 	Tile[] tile;
-	public static final String filePath = "/maps/map02.txt";
+	public static final String filePath = "/maps/world01.txt";
 	int mapTileNum[][];
 	
 	public TileManager(GamePanel gp) {
@@ -22,7 +22,7 @@ public class TileManager {
 		this.gp = gp;
 		
 		tile = new Tile[10];
-		mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
 		
@@ -34,13 +34,22 @@ public class TileManager {
 		try {
 			
 			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/dirt.png"));
+			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass00.png"));
 			
 			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
 			
 			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/white.png"));
+			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water00.png"));
+			
+			tile[3] = new Tile();
+			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
+			
+			tile[4] = new Tile();
+			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
+			
+			tile[5] = new Tile();
+			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
 			
 			
 		}catch(IOException e){
@@ -61,12 +70,12 @@ public class TileManager {
 
             String line;
            
-            while ((line = br.readLine()) != null && row < gp.maxScreenRow) {
+            while ((line = br.readLine()) != null && row < gp.maxWorldRow) {
 
                 String numbers[] = line.split(" ");
                 col = 0;
 
-                while(col < gp.maxScreenCol && col < numbers.length) {
+                while(col < gp.maxWorldCol && col < numbers.length) {
                     int num = Integer.parseInt(numbers[col]);
                     System.out.println(num);
 
@@ -74,7 +83,7 @@ public class TileManager {
                     col++;
                 }
 
-                if(col == gp.maxScreenCol) {
+                if(col == gp.maxWorldCol) {
                     row++;
                 }
 
@@ -91,24 +100,38 @@ public class TileManager {
 	
 	public void draw(Graphics2D g2) {
 		
-		int col = 0;
-		int row = 0;
-		int x = 0;
-		int y = 0;
+		int worldCol = 0;
+		int worldRow = 0;
+
 		
-		while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
+		while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 			
-			int tileNum = mapTileNum[col][row];
+			int tileNum = mapTileNum[worldCol][worldRow];
 			
-			g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
-			col++;
-			x += gp.tileSize;
+			int worldX = worldCol * gp.tileSize; 
+			int worldY = worldRow * gp.tileSize;
 			
-			if(col == gp.maxScreenCol) {
-				col = 0;
-				x = 0;
-				row++;
-				y += gp.tileSize;
+			//Definisce le coordinate delle world tile in base alla posizione del player, che è sempre in mezzo allo screen
+			int screenX = worldX - gp.player.worldX + gp.player.screenX;
+			int screenY = worldY - gp.player.worldY + gp.player.screenY;
+			
+			//per evitare di renderizzare le tiles troppo lontane dal player - NON FUNZIONA somehow
+			if(worldX  > gp.player.worldX - gp.player.screenX && 
+			   worldX  < gp.player.worldX + gp.player.screenX && 
+			   worldY  > gp.player.worldY - gp.player.screenY && 
+			   worldY  > gp.player.worldY + gp.player.screenY) {
+				
+				
+			
+			};
+			
+			g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+			
+			worldCol++;	
+			
+			if(worldCol == gp.maxWorldCol) {
+				worldCol = 0;
+				worldRow++;
 			}
 		}
 		

@@ -1,11 +1,9 @@
 package main;
 
 import java.awt.Color;
-import java.io.IOException;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.FileNotFoundException;
 
 import javax.swing.JPanel;
 import entities.Player;
@@ -23,6 +21,16 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenHeight = tileSize * maxScreenRow; // 576 px
 	//otteniamo così un ratio 4:3
 	
+	
+	//WORLD SETTING AND PARAMETERS
+	public final int maxWorldCol = 50;
+	public final int maxWorldRow = 50;
+	public final int worldWidth = tileSize * maxWorldCol;
+	public final int worldHeight = tileSize * maxWorldRow;
+	
+	
+	
+	
 	//FPS
 	int FPS = 60;
 	
@@ -34,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;//il thread è uno switch che possiamo accendere e spegnere, il programma gira finché non va off; 
 	//dalla libreria java Runnable
 	
-	Player player = new Player(this, keyH);
+	public Player player = new Player(this, keyH);
 	
 	
 	
